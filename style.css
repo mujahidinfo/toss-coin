@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+body{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 15px;
+}
+.coin-feild{
+    padding: 20px;
+    border-radius: 10px;
+}
+.coin-feild img{
+    width: 320px;
+}
+.title{
+    font-size: 50px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+button{
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #6900e2;
+    border: none;
+    color: white;
+}
+button:active{
+    background-color:#8922ff ;
+}
+label{
+    font-size: 26px;
+}
+select{
+    font-size: 20px;
+    padding: 4px 30px;
+    margin-left: 5px;
+        
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toss</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1 class="title">Toss</h1>
+        <div>
+            <label for="chose-coin">Choose :</label>
+            <select name="chose-coin" id="chose-coin">
+                <option value="0">Head</option>
+                <option value="1">Tails</option>
+            </select>
+        </div>
+        <div class="coin-feild">
+            <img id="coin-image" src="assets/head.png" alt="">
+        </div>
+        <button onclick="changeCoin()">Try your luck</button>
+        <h1 id="result">Your Result Show Here</h1>
+    </main>
+
+    <script>
+
+        const changeCoin = () => {
+            const randomImage = ['assets/head.png', 'assets/tails.png'];
+            let number = Math.floor(Math.random() * randomImage.length);
+            console.log(number);
+            let select = document.getElementById('chose-coin');
+            let option = select.options[select.selectedIndex].value;
+            console.log(option);
+            const image = document.getElementById('coin-image');
+            image.src = randomImage[number];
+            if (option == number) {
+                const result = document.getElementById('result')
+                result.style.color = "green"
+                result.textContent = "You Win!"
+            } else {
+                const result = document.getElementById('result')
+                result.style.color = "red"
+                result.textContent = "You Lose!"
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>
