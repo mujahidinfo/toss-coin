@@ -48,6 +48,7 @@ body::before {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding-bottom: 100px;
 }
 
 .coin-feild {
@@ -344,7 +345,7 @@ button:active {
 }
 
 #result {
-    font-size: clamp(24px, 5vw, 36px);
+    font-size: clamp(22px, 5vw, 36px);
     font-weight: 600;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -442,5 +443,116 @@ button:active {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* Footer Styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(26, 31, 53, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer p {
+    color: #e0e0ff;
+    font-size: clamp(14px, 2.5vw, 16px);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer a {
+    color: #7c59ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #9b7fff;
+}
+
+.heart {
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: rgba(124, 89, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.social-link img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.social-link:hover img {
+    opacity: 1;
+}
+
+/* Adjust main container to prevent footer overlap */
+.container {
+    padding-bottom: 100px;
+}
+
+/* Responsive adjustments for footer */
+@media (max-width: 480px) {
+    .footer-content {
+        flex-direction: row;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .footer p {
+        flex-direction: row;
+        gap: 5px;
     }
 }
