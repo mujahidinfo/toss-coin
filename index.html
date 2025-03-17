@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coin Flip | Test Your Luck</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="assets/head.png">
+    <link rel="icon" type="image/png" href="assets/head-bd.png">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 
@@ -18,17 +18,17 @@
             <label>Choose your side:</label>
             <div class="choice-buttons">
                 <button class="choice-btn" onclick="selectChoice(0)" id="head-btn">
-                    <img src="assets/head.png" alt="Head">
+                    <img src="assets/head-bd.png" alt="Head">
                     <span>Head</span>
                 </button>
                 <button class="choice-btn" onclick="selectChoice(1)" id="tails-btn">
-                    <img src="assets/tails.png" alt="Tails">
+                    <img src="assets/tails-bd.png" alt="Tails">
                     <span>Tails</span>
                 </button>
             </div>
         </div>
         <div class="coin-feild">
-            <img id="coin-image" src="assets/head.png" alt="Coin">
+            <img id="coin-image" src="assets/head-bd.png" alt="Coin">
         </div>
         <button class="flip-btn" onclick="changeCoin()">Flip the coin</button>
         <h1 id="result">Make your choice and flip!</h1>
@@ -103,7 +103,7 @@
             buttonSound.currentTime = 0;
             buttonSound.play().catch(error => console.log('Button sound error:', error));
 
-            const randomImage = ['assets/head.png', 'assets/tails.png'];
+            const randomImage = ['assets/head-bd.png', 'assets/tails-bd.png'];
             let number = Math.floor(Math.random() * randomImage.length);
             const image = document.getElementById('coin-image');
             
