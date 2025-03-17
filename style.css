@@ -1,46 +1,446 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
-body{
+/* Reset and Base Styles */
+* {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    box-sizing: border-box;
 }
-.container{
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a1f35 0%, #2d1b4c 100%);
+    color: #e0e0ff;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(124, 89, 255, 0.1) 0%, transparent 50%);
+    animation: aurora 15s infinite linear;
+    z-index: 0;
+}
+
+@keyframes aurora {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    gap: 15px;
-}
-.coin-feild{
+    min-height: 100vh;
+    gap: 35px;
     padding: 20px;
-    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
-.coin-feild img{
-    width: 320px;
+
+.coin-feild {
+    perspective: 1500px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.title{
-    font-size: 50px;
-    font-weight: 900;
+
+.coin-feild:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+}
+
+.coin-feild img {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    filter: drop-shadow(0 0 20px rgba(124, 89, 255, 0.4));
+}
+
+.coin-feild img.flip {
+    animation: flipCoin 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes flipCoin {
+    0% {
+        transform: rotateY(0) scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: rotateY(720deg) scale(1.3);
+        filter: brightness(1.5);
+    }
+    100% {
+        transform: rotateY(1440deg) scale(1);
+        filter: brightness(1);
+    }
+}
+
+.title {
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 800;
     text-transform: uppercase;
+    margin: 0;
+    background: linear-gradient(to right, #fff 20%, #7c59ff 40%, #7c59ff 60%, #fff 80%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+    letter-spacing: 2px;
+    text-align: center;
 }
-button{
-    font-size: 20px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #6900e2;
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+button {
+    font-size: clamp(16px, 3vw, 20px);
+    padding: clamp(10px, 2vw, 15px) clamp(25px, 5vw, 40px);
+    border-radius: 30px;
+    background: linear-gradient(45deg, #7c59ff, #5c35e6);
     border: none;
     color: white;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(124, 89, 255, 0.3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    min-width: 200px;
 }
-button:active{
-    background-color:#8922ff ;
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
 }
-label{
-    font-size: 26px;
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(124, 89, 255, 0.4);
 }
-select{
-    font-size: 20px;
-    padding: 4px 30px;
-    margin-left: 5px;
-        
+
+button:hover::before {
+    left: 100%;
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 15px rgba(124, 89, 255, 0.3);
+}
+
+.choice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: clamp(20px, 4vw, 30px);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 500px;
+}
+
+.choice-container label {
+    font-size: clamp(20px, 4vw, 24px);
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #e0e0ff;
+    text-align: center;
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    background: rgba(124, 89, 255, 0.1);
+    border: 2px solid rgba(124, 89, 255, 0.3);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.choice-btn:hover {
+    transform: translateY(-3px);
+    background: rgba(124, 89, 255, 0.2);
+    border-color: rgba(124, 89, 255, 0.5);
+    box-shadow: 0 5px 15px rgba(124, 89, 255, 0.2);
+}
+
+.choice-btn:hover::before {
+    left: 100%;
+}
+
+.choice-btn.selected {
+    background: rgba(124, 89, 255, 0.3);
+    border-color: rgba(124, 89, 255, 0.8);
+    box-shadow: 0 0 20px rgba(124, 89, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.choice-btn img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.choice-btn:hover img {
+    transform: scale(1.1);
+}
+
+.choice-btn span {
+    font-size: clamp(16px, 3vw, 18px);
+    font-weight: 600;
+    color: #e0e0ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.flip-btn {
+    font-size: clamp(18px, 3.5vw, 22px);
+    padding: clamp(12px, 2.5vw, 15px) clamp(30px, 6vw, 45px);
+    border-radius: 30px;
+    background: linear-gradient(45deg, #7c59ff, #5c35e6);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(124, 89, 255, 0.3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    min-width: 200px;
+    margin-top: 20px;
+}
+
+.flip-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.flip-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(124, 89, 255, 0.4);
+}
+
+.flip-btn:hover::before {
+    left: 100%;
+}
+
+.flip-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 15px rgba(124, 89, 255, 0.3);
+}
+
+/* Responsive adjustments for choice buttons */
+@media (max-width: 768px) {
+    .choice-buttons {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .choice-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .choice-container {
+        padding: 15px;
+    }
+
+    .choice-btn {
+        padding: 12px 20px;
+    }
+
+    .choice-btn img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+#result {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+#result[style*="green"] {
+    color: #4eff9f !important;
+    text-shadow: 0 0 20px rgba(78, 255, 159, 0.4);
+}
+
+#result[style*="red"] {
+    color: #ff4e4e !important;
+    text-shadow: 0 0 20px rgba(255, 78, 78, 0.4);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+    .container {
+        gap: 25px;
+        padding: 15px;
+    }
+
+    .coin-feild {
+        padding: 30px;
+    }
+
+    .choice-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    select {
+        margin-left: 0;
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .coin-feild {
+        padding: 20px;
+    }
+
+    button {
+        min-width: 180px;
+    }
+
+    .choice-container {
+        padding: 15px;
+    }
+}
+
+/* Landscape Mode Adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    .container {
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .coin-feild img {
+        max-width: 200px;
+    }
+
+    .title {
+        font-size: clamp(32px, 6vw, 48px);
+    }
+
+    #result {
+        font-size: clamp(20px, 4vw, 28px);
+    }
+}
+
+/* High-DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .coin-feild img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

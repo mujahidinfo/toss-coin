@@ -5,52 +5,146 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toss</title>
+    <title>Coin Flip | Test Your Luck</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/head.png">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
     <main class="container">
-        <h1 class="title">Toss</h1>
-        <div>
-            <label for="chose-coin">Choose :</label>
-            <select name="chose-coin" id="chose-coin">
-                <option value="0">Head</option>
-                <option value="1">Tails</option>
-            </select>
+        <h1 class="title">Coin Flip</h1>
+        <div class="choice-container">
+            <label>Choose your side:</label>
+            <div class="choice-buttons">
+                <button class="choice-btn" onclick="selectChoice(0)" id="head-btn">
+                    <img src="assets/head.png" alt="Head">
+                    <span>Head</span>
+                </button>
+                <button class="choice-btn" onclick="selectChoice(1)" id="tails-btn">
+                    <img src="assets/tails.png" alt="Tails">
+                    <span>Tails</span>
+                </button>
+            </div>
         </div>
         <div class="coin-feild">
-            <img id="coin-image" src="assets/head.png" alt="">
+            <img id="coin-image" src="assets/head.png" alt="Coin">
         </div>
-        <button onclick="changeCoin()">Try your luck</button>
-        <h1 id="result">Your Result Show Here</h1>
+        <button class="flip-btn" onclick="changeCoin()">Flip the coin</button>
+        <h1 id="result">Make your choice and flip!</h1>
     </main>
 
+    <!-- Audio Elements -->
+    <audio id="coinFlipSound" src="assets/audio/coin-flip.mp3"></audio>
+    <audio id="buttonClickSound" src="assets/audio/button-click.mp3"></audio>
+    <audio id="victorySound" src="assets/audio/victory.mp3"></audio>
+    <audio id="loseSound" src="assets/audio/lose.mp3"></audio>
+
     <script>
+        let selectedChoice = null;
+
+        const selectChoice = (choice) => {
+            selectedChoice = choice;
+            // Update button styles
+            document.getElementById('head-btn').classList.toggle('selected', choice === 0);
+            document.getElementById('tails-btn').classList.toggle('selected', choice === 1);
+        };
+
+        // Function to play confetti animation
+        const triggerConfetti = () => {
+            // Win celebration confetti
+            confetti({
+                particleCount: 150,
+                spread: 180,
+                origin: { y: 0.6 },
+                colors: ['#4eff9f', '#7c59ff', '#ffffff']
+            });
+            
+            // Additional burst from left and right
+            confetti({
+                particleCount: 50,
+                angle: 60,
+                spread: 80,
+                origin: { x: 0 }
+            });
+            confetti({
+                particleCount: 50,
+                angle: 120,
+                spread: 80,
+                origin: { x: 1 }
+            });
+        };
 
         const changeCoin = () => {
+            if (selectedChoice === null) {
+                const result = document.getElementById('result');
+                result.style.color = "#ff4e4e";
+                result.textContent = "Please select Head or Tails first!";
+                return;
+            }
+
+            // Play button click sound
+            const buttonSound = document.getElementById('buttonClickSound');
+            buttonSound.currentTime = 0;
+            buttonSound.play().catch(error => console.log('Button sound error:', error));
+
             const randomImage = ['assets/head.png', 'assets/tails.png'];
             let number = Math.floor(Math.random() * randomImage.length);
-            console.log(number);
-            let select = document.getElementById('chose-coin');
-            let option = select.options[select.selectedIndex].value;
-            console.log(option);
             const image = document.getElementById('coin-image');
-            image.src = randomImage[number];
-            if (option == number) {
-                const result = document.getElementById('result')
-                result.style.color = "green"
-                result.textContent = "You Win!"
-            } else {
-                const result = document.getElementById('result')
-                result.style.color = "red"
-                result.textContent = "You Lose!"
-            }
+            
+            // Play coin flip sound
+            const coinSound = document.getElementById('coinFlipSound');
+            coinSound.currentTime = 0;
+            coinSound.play().catch(error => console.log('Coin sound error:', error));
+            
+            // Add flip animation
+            image.classList.add('flip');
+            
+            // Wait for animation to complete before showing result
+            setTimeout(() => {
+                image.src = randomImage[number];
+                if (selectedChoice == number) {
+                    const result = document.getElementById('result');
+                    result.style.color = "rgb(0, 255, 0)";
+                    result.textContent = "You Win! 🎉";
+                    
+                    // Play victory sound and confetti with a slight delay
+                    setTimeout(() => {
+                        const victorySound = document.getElementById('victorySound');
+                        victorySound.currentTime = 0;
+                        victorySound.volume = 1.0;
+                        victorySound.play().catch(error => console.log('Victory sound error:', error));
+                        triggerConfetti();
+                    }, 100);
+                } else {
+                    const result = document.getElementById('result');
+                    result.style.color = "rgb(255, 50, 50)";
+                    result.textContent = "You Lose! 😢";
+                    
+                    // Play lose sound with a slight delay
+                    setTimeout(() => {
+                        const loseSound = document.getElementById('loseSound');
+                        loseSound.currentTime = 0;
+                        loseSound.volume = 1.0;
+                        loseSound.play().catch(error => console.log('Lose sound error:', error));
+                    }, 100);
+                }
+                
+                // Remove flip class after animation
+                setTimeout(() => {
+                    image.classList.remove('flip');
+                }, 1000);
+            }, 500);
         }
 
+        // Preload audio files
+        window.addEventListener('load', () => {
+            const audioElements = document.querySelectorAll('audio');
+            audioElements.forEach(audio => {
+                audio.load();
+            });
+        });
     </script>
-
-
 </body>
 
 </html>
